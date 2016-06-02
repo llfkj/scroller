@@ -1,0 +1,22 @@
+
+
+<ScrollerGame>:
+    canvas:
+        Rectangle:
+            pos: 0, 0
+            size: self.width, 15
+
+    RectangleMan:
+        pos: 0, 15
+
+
+<RectangleMan>:
+    size: 20, 50
+    canvas:
+        Color:
+            rgba: 0, 1, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
