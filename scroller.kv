@@ -1,22 +1,47 @@
 
-
 <ScrollerGame>:
+    player: _player
+    tree1: _tree1
+    tree2: _tree2
+    tree3: _tree3
     canvas:
+        Color:
+            rgba: 0, 0.5, 0, 1
         Rectangle:
             pos: 0, 0
             size: self.width, 15
 
     RectangleMan:
-        pos: 0, 15
+        id: _player
+        pos: 0.25 * self.parent.width, 15
+
+    RectangleTree:
+        id: _tree1
+        pos: self.parent.center_x - 5 , 0
+
+    RectangleTree:
+        id: _tree2
+        pos: -1, 0
+
+    RectangleTree:
+        id: _tree3
+        pos: -1, 0
 
 
 <RectangleMan>:
     size: 20, 50
     canvas:
         Color:
-            rgba: 0, 1, 0, 1
+            rgba: 0, 0, 0.75, 1
         Rectangle:
             pos: self.pos
             size: self.size
 
-
+<RectangleTree>:
+    size: 10, 100
+    canvas:
+        Color:
+            rgba: 0.8, 0.5, 0.5, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
