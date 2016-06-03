@@ -3,7 +3,7 @@ import random
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import (
-    NumericProperty, ReferenceListProperty, ObjectProperty)
+    NumericProperty, ReferenceListProperty, ObjectProperty, BooleanProperty)
 from kivy.clock import Clock
 from kivy.vector import Vector
 
@@ -21,8 +21,11 @@ class ScrollerGame(Widget):
         self.tree3.scroll(self.player.velocity_x)
 
     def on_touch_down(self, touch):
-        if touch.x > self.player.center_x:
+        if touch.x >= self.player.center_x:
             self.player.velocity_x = 2
+        if touch.x < self.player.center_x and not self.player.jumping:
+            self.player.jumping = True
+            self.player.velocity_y = 100
 
     def on_touch_up(self, touch):
         self.player.velocity_x = 0
@@ -30,6 +33,7 @@ class ScrollerGame(Widget):
 
 class RectangleMan(Widget):
     MAX_VELOCITY_X = 10
+    jumping = BooleanProperty(False)
     velocity_x = NumericProperty(0)
     velocity_y = NumericProperty(0)
     velocity = ReferenceListProperty(velocity_x, velocity_y)
@@ -39,6 +43,14 @@ class RectangleMan(Widget):
             self.velocity_x += 2 * dt
         if self.velocity_x > self.MAX_VELOCITY_X:
             self.velocity_x = self.MAX_VELOCITY_X
+        if self.jumping:
+            self.pos = Vector(self.x, self.y + dt * self.velocity_y)
+            self.velocity_y += -100 * dt
+            if self.y <= 15:
+                # Hit the ground
+                self.pos = Vector(self.x, 15)
+                self.velocity_y = 0
+                self.jumping = False
         # Track our velocity but don't actually move the player sprite
         #self.pos = Vector(*self.velocity) + self.pos
 
@@ -49,7 +61,7 @@ class RectangleTree(Widget):
             self.pos = Vector(-1 * scroll_dist, 0) + self.pos
         else:
             self.pos = Vector(
-                self.parent.width + random.randint(0, self.parent.width), 0)
+                self.parent.width + random.randint(0, self.parent.width), 15)
 
 
 class ScrollerApp(App):
