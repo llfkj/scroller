@@ -25,7 +25,7 @@ class ScrollerGame(Widget):
             self.player.velocity_x = 2
         if touch.x < self.player.center_x and not self.player.jumping:
             self.player.jumping = True
-            self.player.velocity_y = 100
+            self.player.velocity_y = self.player.JUMP_SPEED
 
     def on_touch_up(self, touch):
         if touch.x >= self.player.center_x:
@@ -34,6 +34,7 @@ class ScrollerGame(Widget):
 
 class RectangleMan(Widget):
     MAX_VELOCITY_X = 10
+    JUMP_SPEED = 200
     jumping = BooleanProperty(False)
     velocity_x = NumericProperty(0)
     velocity_y = NumericProperty(0)
@@ -46,7 +47,7 @@ class RectangleMan(Widget):
             self.velocity_x = self.MAX_VELOCITY_X
         if self.jumping:
             self.pos = Vector(self.x, self.y + dt * self.velocity_y)
-            self.velocity_y += -100 * dt
+            self.velocity_y += -2 * self.JUMP_SPEED * dt
             if self.y <= 15:
                 # Hit the ground
                 self.pos = Vector(self.x, 15)
@@ -57,8 +58,10 @@ class RectangleMan(Widget):
 
 
 class RectangleTree(Widget):
+    LEFT_OFFSET = 100
+
     def scroll(self, scroll_dist):
-        if self.pos[0] > 0:
+        if self.pos[0] > 0 - self.LEFT_OFFSET:
             self.pos = Vector(-1 * scroll_dist, 0) + self.pos
         else:
             self.pos = Vector(

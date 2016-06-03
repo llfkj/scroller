@@ -9,7 +9,7 @@
             rgba: 0, 0.5, 0, 1
         Rectangle:
             pos: 0, 0
-            size: self.width, 15
+            size: self.width, 25
 
     RectangleMan:
         id: _player
@@ -29,19 +29,21 @@
 
 
 <RectangleMan>:
-    size: 20, 50
+    size: 74, 62
     canvas:
         Color:
-            rgba: 0, 0, 0.75, 1
+            rgba: 1, 1, 1, 1
         Rectangle:
+            source: 'assets/ostrich.png'
             pos: self.pos
             size: self.size
 
 <RectangleTree>:
-    size: 10, 100
+    size: 132, 219
     canvas:
         Color:
-            rgba: 0.8, 0.5, 0.5, 1
+            rgba: 1, 1, 1, 1
         Rectangle:
+            source: 'assets/tree.png'
             pos: self.pos
             size: self.size
