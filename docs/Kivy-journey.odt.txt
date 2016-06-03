@@ -1,0 +1,26 @@
+﻿WHERE CAN WE FIND STUFF?
+learnleapfly/gamecamp has no examples, though we kind of expected it. Next we went to the kivy website. Pong example found using grep in the kivy repo. As well as in getting started.
+MAKING OUR OWN GAME
+Decided to make a side-scroller-like game, similar to Mario. following the getting started tutorial. Made some widgets. Horizontal bar at bottom of screen created!
+We next created our little Rectangle Man standing on the ground on the left side of the screen.
+Next, to show movement, we're going to add a tree object for the background.
+We add a new Tree class and instance to our Game object in the kv file, and write a "scroll" function to be called when the game is updated.
+In the scroll function we want to subtract some Vector from the self.pos vector to move our tree
+NOTE:  If in your scroll you do self.pos = self.pos + Vector, it will complain that the "pos" property is immutable.  You have t use self.pos = Vector + self.pos
+Once you have one tree scrolling by, let's add more!  First step – when the tree scrolls off the screen to the left, reset it back to its original position
+Now let’s add more trees – start with some of the trees off the screen, and start them at random intervals off to the right so they don’t seem placed identically.
+Next, instead of simply scrolling by at a static rate, let’s have the trees scroll based on input from the player.  To get the player to move we’ll need to handle touch / click input from the user.  If the user touches to the right of the character, we’ll move right; don’t allow the user to move to the left
+Now we want to implement jumping.  When the user touches to the left of the  character, make the character jump (so we can add in obstacles later).
+Jumping requires a new flag on the player, so we know not to allow the player to jump again while already jumping.  Once the character makes it back to the ground, we stop moving them vertically and turn off their jumping flag.
+Our little game with running and jumping is neat, but it's still pretty ugly.  Let's find some images to use in place of the rectangles to make it look more interesting.  We download a Tree sprite and an ostrich sprite for our running player.  Set the source property on both Rectangles in the KV file.  Don't forget to set the Color to 1, 1, 1, 1 so the image appears in it's normal colors!  You'll want transparent sprites for this.
+
+
+QUESTIONS
+Some confusion about how properties work. Why are there ReferenceListProperty? Best guess: it's to make a tuple that is automatically updated.
+What is size measured in? Is it pixels? What is self.pos referring to? (Bottom Left?)
+We want colors! Where are galaxy invaders? Hard to find :(
+Finally found colors in the KV file - Color object needs to be specified under canvas, and has rgba property.
+How do you quickly specify multiple instances of an object in the kv file?  Is there a shortcut?
+How do you specify which object is drawn "on top?"
+When we randomly clicked on the screen, small circles appeared.  What's going on?
+Is there a better way to manage a bunch of objects at once?  We want to have several instances of our trees, but it seem inefficient to have tree1, tree2, tree3, etc. Properties.
