@@ -28,7 +28,8 @@ class ScrollerGame(Widget):
             self.player.velocity_y = 100
 
     def on_touch_up(self, touch):
-        self.player.velocity_x = 0
+        if touch.x >= self.player.center_x:
+            self.player.velocity_x = 0
 
 
 class RectangleMan(Widget):
